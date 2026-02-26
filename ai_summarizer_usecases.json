@@ -1,0 +1,161 @@
+{
+    "app_name": "AI Summarizer",
+    "version": "1.0",
+    "description": "A comprehensive AI-powered text summarization and analysis tool. Given any piece of text — articles, reports, meeting notes, research papers, or documents — this tool applies various analytical lenses to extract maximum value and insight from the content.",
+    "usecases": [
+        {
+            "id": "key_points",
+            "name": "Key Points Extraction",
+            "description": "Distills the most critical and impactful points from a body of text, filtering out noise and filler to present only the essential takeaways that a reader absolutely needs to know.",
+            "prompt_template": "You are an expert analyst tasked with distilling the most important information from a given text. Your job is to carefully read the entire text, identify the core ideas, pivotal facts, primary arguments, and essential conclusions, and then present them as a clean, numbered list of key points.\n\nGuidelines:\n- Focus on substance over style — extract the 'what matters' from the text.\n- Each point should be self-contained and understandable on its own without needing to read the full text.\n- Prioritize points by importance — the most critical insight should come first.\n- Avoid redundancy — do not repeat the same idea in different words.\n- Aim for 5-10 key points depending on the length and complexity of the text.\n- Use clear, direct language. Do not add your own opinions or interpretations.\n\nText to analyze:\n\"\"\"\n{input_text}\n\"\"\"\n\nProvide the key points as a numbered list:",
+            "output_format": "bullet_list",
+            "category": "extraction"
+        },
+        {
+            "id": "questions",
+            "name": "Intelligent Question Generation",
+            "description": "Generates a diverse set of thought-provoking questions derived from the text — ranging from basic comprehension checks to deep critical-thinking prompts — ideal for study guides, interviews, or self-assessment.",
+            "prompt_template": "You are an experienced educator and critical thinking coach. Your task is to read the following text and generate a comprehensive set of questions that test and deepen understanding of its content.\n\nGenerate questions across three levels of depth:\n1. **Comprehension Questions** (2-3): Test whether the reader understood the basic facts and main ideas presented.\n2. **Analytical Questions** (2-3): Require the reader to examine relationships between ideas, identify cause-and-effect, compare perspectives, or evaluate the strength of arguments.\n3. **Critical Thinking & Application Questions** (2-3): Push the reader to think beyond the text — consider real-world implications, challenge assumptions, propose alternatives, or connect the content to broader contexts.\n\nGuidelines:\n- Each question should be clearly worded and directly tied to the content of the text.\n- Avoid yes/no questions — favor open-ended questions that invite elaboration.\n- Questions should progress from simpler to more complex.\n- Do not create questions about trivial or insignificant details.\n\nText to analyze:\n\"\"\"\n{input_text}\n\"\"\"\n\nGenerate the questions organized by depth level:",
+            "output_format": "categorized_numbered_list",
+            "category": "analysis"
+        },
+        {
+            "id": "executive_summary",
+            "name": "Executive Summary",
+            "description": "Produces a polished, high-level executive summary designed for busy decision-makers who need to grasp the essence of a document in under 30 seconds — covering the what, why, and so-what of the content.",
+            "prompt_template": "You are a senior business analyst preparing a briefing for C-level executives. Your task is to create a concise, polished executive summary of the following text that can be read and understood in under 30 seconds.\n\nYour summary must address three dimensions:\n1. **The What**: What is the text fundamentally about? What is the core subject or situation?\n2. **The Why**: Why does it matter? What is the significance or impact?\n3. **The So-What**: What are the key conclusions, recommendations, or implications for the reader?\n\nGuidelines:\n- Keep it to 3-5 sentences maximum.\n- Use professional, confident language appropriate for executive communication.\n- Lead with the most important conclusion or finding, not background context.\n- Eliminate all jargon unless it is essential and widely understood by the target audience.\n- Every sentence must earn its place — no filler, no fluff.\n\nText to summarize:\n\"\"\"\n{input_text}\n\"\"\"\n\nExecutive Summary:",
+            "output_format": "paragraph",
+            "category": "summarization"
+        },
+        {
+            "id": "eli5",
+            "name": "Simplified Explanation (ELI5)",
+            "description": "Transforms complex, technical, or dense content into plain, everyday language that anyone — regardless of expertise level — can easily understand, using relatable analogies and simple vocabulary.",
+            "prompt_template": "You are a gifted communicator who specializes in making complex ideas accessible to everyone. Your task is to take the following text — which may contain technical jargon, complex concepts, or dense information — and re-explain it in the simplest possible language.\n\nGuidelines:\n- Imagine you are explaining this to a curious friend who has zero background in the subject.\n- Replace every piece of jargon or technical term with a simple, everyday equivalent.\n- Use concrete analogies, metaphors, and real-world examples to illustrate abstract concepts.\n- Break down complex processes into simple step-by-step explanations.\n- Keep sentences short and direct.\n- Maintain accuracy — simplifying does not mean dumbing down or distorting the truth.\n- The reader should walk away feeling confident they understand the core message.\n\nText to simplify:\n\"\"\"\n{input_text}\n\"\"\"\n\nHere's the simple explanation:",
+            "output_format": "paragraph",
+            "category": "simplification"
+        },
+        {
+            "id": "action_items",
+            "name": "Action Items & Next Steps",
+            "description": "Scans the text for any actionable tasks, recommendations, deadlines, or follow-up items and organizes them into a prioritized, ready-to-execute checklist.",
+            "prompt_template": "You are a project manager reviewing a document to extract every actionable item, recommendation, instruction, deadline, or suggested next step — whether explicitly stated or strongly implied.\n\nYour task is to compile a comprehensive, prioritized action item list from the following text.\n\nFor each action item, provide:\n- **Action**: A clear, concise description of what needs to be done.\n- **Priority**: High / Medium / Low (based on urgency and impact as indicated by the text).\n- **Owner/Audience** (if mentioned): Who is responsible or who should take this action.\n- **Deadline** (if mentioned): Any time constraints or due dates referenced.\n\nGuidelines:\n- Include both explicit action items ('We need to...', 'The next step is...') and implied ones ('This area requires attention...').\n- Be specific — 'Improve communication' is too vague; 'Schedule weekly team check-ins to improve cross-department communication' is actionable.\n- Group related actions if they belong to the same initiative or theme.\n- If no clear actions exist in the text, state that explicitly rather than fabricating them.\n\nText to analyze:\n\"\"\"\n{input_text}\n\"\"\"\n\nAction Items:",
+            "output_format": "structured_checklist",
+            "category": "extraction"
+        },
+        {
+            "id": "sentiment_analysis",
+            "name": "Sentiment & Tone Analysis",
+            "description": "Performs a nuanced analysis of the emotional undertone, authorial intent, and overall sentiment of the text — going beyond simple positive/negative labels to capture the texture of how the message is communicated.",
+            "prompt_template": "You are a linguistics and communication expert specializing in discourse analysis. Your task is to perform a detailed sentiment and tone analysis of the following text.\n\nProvide your analysis across these dimensions:\n\n1. **Overall Sentiment**: Classify as Positive, Negative, Neutral, or Mixed. Provide a confidence level (High/Medium/Low) for your classification.\n2. **Dominant Tone**: Identify the primary tone (e.g., optimistic, cautionary, persuasive, analytical, frustrated, celebratory, defensive, urgent, etc.). Explain what textual cues led you to this conclusion.\n3. **Emotional Undertones**: Identify any secondary or subtle emotions present beneath the surface (e.g., anxiety beneath a calm exterior, enthusiasm masked by formal language).\n4. **Author's Intent**: What appears to be the author's purpose — to inform, persuade, warn, celebrate, critique, or something else?\n5. **Audience Impact**: How is this text likely to make its intended audience feel?\n\nGuidelines:\n- Support your analysis with specific quotes or phrases from the text as evidence.\n- Be nuanced — most real-world texts have layered sentiments, not a single emotion.\n- Distinguish between the sentiment of the content being discussed and the author's own sentiment about it.\n\nText to analyze:\n\"\"\"\n{input_text}\n\"\"\"\n\nSentiment & Tone Analysis:",
+            "output_format": "structured_report",
+            "category": "analysis"
+        },
+        {
+            "id": "pros_cons",
+            "name": "Pros & Cons Analysis",
+            "description": "Systematically identifies and organizes the advantages and disadvantages, benefits and risks, or supporting and opposing arguments present in the text — providing a balanced, two-sided view of the topic.",
+            "prompt_template": "You are an impartial analyst tasked with creating a balanced pros-and-cons evaluation based on the following text. Your goal is to fairly represent both sides — the positive aspects and the negative aspects — of the topics, proposals, or arguments discussed.\n\nFor each side, provide:\n- A clear, specific point (not vague generalizations).\n- Brief supporting context from the text explaining why it is a pro or a con.\n\nStructure your response as:\n\n**PROS (Advantages / Benefits / Supporting Arguments):**\n1. [Point] — [Brief context]\n2. ...\n\n**CONS (Disadvantages / Risks / Opposing Arguments):**\n1. [Point] — [Brief context]\n\n**Overall Assessment:** A 2-3 sentence balanced conclusion on whether the pros outweigh the cons or vice versa, based solely on the evidence in the text.\n\nGuidelines:\n- Be strictly objective — do not inject your own bias.\n- If the text is one-sided, acknowledge that and note what opposing perspectives might be missing.\n- Include both explicitly stated and reasonably implied pros/cons.\n\nText to analyze:\n\"\"\"\n{input_text}\n\"\"\"\n\nPros & Cons Analysis:",
+            "output_format": "two_column_with_conclusion",
+            "category": "analysis"
+        },
+        {
+            "id": "timeline",
+            "name": "Timeline & Event Extraction",
+            "description": "Identifies all chronological events, dates, milestones, and temporal references scattered throughout the text and reconstructs them into a clear, ordered timeline narrative.",
+            "prompt_template": "You are a researcher tasked with extracting and reconstructing the chronological sequence of events from the following text. Many texts mention dates, events, and milestones in a non-linear order — your job is to untangle them and present a clear, ordered timeline.\n\nFor each timeline entry, provide:\n- **Date/Time Period**: The specific date, approximate period, or relative timing (e.g., 'Q3 2024', 'After the merger', 'Initially').\n- **Event**: A concise description of what happened or is expected to happen.\n- **Significance**: A brief note on why this event matters in the broader narrative (one sentence).\n\nGuidelines:\n- Include both past events and future projections/plans if mentioned.\n- If exact dates are not provided, use contextual clues to establish relative ordering.\n- Highlight any causal relationships between events (e.g., 'Event A led to Event B').\n- If the text contains no meaningful chronological information, state that clearly.\n\nText to analyze:\n\"\"\"\n{input_text}\n\"\"\"\n\nTimeline:",
+            "output_format": "chronological_list",
+            "category": "extraction"
+        },
+        {
+            "id": "keywords_topics",
+            "name": "Keywords, Themes & Topic Tagging",
+            "description": "Performs intelligent topic modeling on the text — extracting the dominant keywords, overarching themes, and suggested classification tags to enable easy categorization and retrieval of the content.",
+            "prompt_template": "You are an information architect and content strategist. Your task is to analyze the following text and extract its semantic fingerprint — the keywords, themes, and topics that define what this content is about.\n\nProvide your analysis in three tiers:\n\n1. **Top Keywords / Key Phrases** (8-12): The most important individual words or short phrases that capture the specific subject matter. Rank them by relevance to the core content.\n2. **Overarching Themes** (3-5): Broader conceptual themes that the text addresses. These should be high-level categories that describe the 'big picture' of the content.\n3. **Suggested Classification Tags** (5-8): Short, lowercase tags suitable for use in a content management system or database for categorization and search purposes (e.g., 'machine-learning', 'climate-policy', 'financial-analysis').\n\nGuidelines:\n- Keywords should be specific to this text, not generic (e.g., 'transformer architecture' not just 'technology').\n- Themes should be conceptual and broad (e.g., 'Ethical implications of automation').\n- Tags should be practical and follow common tagging conventions.\n- Do not include filler words or overly common terms as keywords.\n\nText to analyze:\n\"\"\"\n{input_text}\n\"\"\"\n\nKeywords, Themes & Tags:",
+            "output_format": "tiered_tag_list",
+            "category": "extraction"
+        },
+        {
+            "id": "flashcards",
+            "name": "Study Flashcard Generation",
+            "description": "Transforms text content into a set of effective study flashcards using proven learning science principles — each card isolating a single concept with a clear prompt and a precise answer for optimal retention.",
+            "prompt_template": "You are an expert instructional designer who creates highly effective study materials based on learning science principles (spaced repetition, active recall, and the testing effect). Your task is to transform the following text into a set of study flashcards.\n\nFor each flashcard, provide:\n- **Front (Question/Prompt)**: A clear, focused question or prompt that tests recall of a single concept, fact, or relationship from the text.\n- **Back (Answer)**: A concise, accurate answer that directly addresses the prompt. Include just enough context to be self-contained.\n\nGuidelines:\n- Create 8-12 flashcards depending on the density of the content.\n- Each card should test ONE concept — avoid compound questions.\n- Mix question types: definition-based, relationship-based ('How does X relate to Y?'), application-based ('Why would X happen when Y?'), and comparison-based.\n- Progress from foundational concepts to more nuanced ones.\n- The answer should be concise (1-3 sentences) — not a paragraph.\n- Do not create trivially easy cards or obscure detail-focused cards.\n\nText to study:\n\"\"\"\n{input_text}\n\"\"\"\n\nFlashcards:",
+            "output_format": "qa_card_pairs",
+            "category": "education"
+        },
+        {
+            "id": "fact_vs_opinion",
+            "name": "Fact vs. Opinion Separator",
+            "description": "Applies rigorous analytical scrutiny to distinguish between verifiable factual claims, subjective opinions, and unverified assertions in the text — essential for critical reading and media literacy.",
+            "prompt_template": "You are a fact-checking analyst and critical thinking expert. Your task is to carefully read the following text and classify each significant claim or statement into one of three categories:\n\n1. **Verified/Verifiable Facts**: Statements that are objectively true or can be verified through evidence, data, or authoritative sources. These are claims about the real world that have a definitive true/false answer.\n2. **Opinions & Subjective Judgments**: Statements that reflect the author's personal perspective, interpretation, preference, or value judgment. These cannot be proven true or false because they are inherently subjective.\n3. **Unverified Claims**: Statements presented as factual but which lack sufficient evidence in the text to confirm. These require further investigation before accepting as fact.\n\nFor each classified statement:\n- Quote or closely paraphrase the original statement.\n- Explain briefly WHY you classified it that way.\n- For unverified claims, suggest what evidence would be needed to verify them.\n\nGuidelines:\n- Pay attention to hedging language ('might', 'could', 'some experts say') which often signals opinion or uncertainty.\n- Statistics and data claims are only 'facts' if they come with credible sourcing in the text.\n- Distinguish between the author's opinions and opinions they are reporting from others.\n\nText to analyze:\n\"\"\"\n{input_text}\n\"\"\"\n\nFact vs. Opinion Analysis:",
+            "output_format": "classified_evidence_list",
+            "category": "critical_thinking"
+        },
+        {
+            "id": "comparison_table",
+            "name": "Structured Comparison Table",
+            "description": "When a text discusses multiple options, products, approaches, or ideas, this use case automatically identifies them and constructs a side-by-side comparison table across the most relevant criteria.",
+            "prompt_template": "You are a research analyst who excels at organizing complex information into clear, comparable formats. The following text discusses or references multiple items, options, approaches, technologies, or concepts. Your task is to identify these items and create a structured comparison table.\n\nSteps:\n1. **Identify the Items Being Compared**: List the 2-5 primary items, options, or concepts discussed in the text.\n2. **Determine Comparison Criteria**: Identify the 4-8 most relevant dimensions along which these items differ or can be evaluated (e.g., cost, effectiveness, complexity, target audience, etc.).\n3. **Build the Comparison Table**: Fill in each cell with concise, factual information drawn from the text. Use 'Not mentioned' for criteria not addressed in the text rather than speculating.\n4. **Summary Insight**: Provide a 2-3 sentence summary of the key differentiators and which option might be best suited for different use cases.\n\nGuidelines:\n- Only include information supported by the text — do not add external knowledge.\n- Keep cell content concise (a few words to one sentence per cell).\n- If the text does not contain comparisons, state that clearly and instead provide a feature summary of whatever is discussed.\n\nText to analyze:\n\"\"\"\n{input_text}\n\"\"\"\n\nComparison Table:",
+            "output_format": "markdown_table_with_summary",
+            "category": "analysis"
+        },
+        {
+            "id": "critique",
+            "name": "Critical Analysis & Gap Identification",
+            "description": "Performs a thorough critical review of the text — evaluating the strength of its arguments, identifying logical gaps, spotting potential biases, and suggesting how the content could be strengthened or expanded.",
+            "prompt_template": "You are a senior academic reviewer and critical thinking expert conducting a rigorous analysis of the following text. Your goal is to evaluate the quality, completeness, and integrity of the arguments and information presented.\n\nStructure your critique across these four dimensions:\n\n1. **Strengths** — What does this text do well? Identify well-supported arguments, valuable insights, strong evidence, clear reasoning, or effective communication.\n\n2. **Weaknesses** — Where does the text fall short? Look for:\n   - Logical fallacies (e.g., false equivalence, straw man, appeal to authority)\n   - Unsupported or poorly supported claims\n   - Overgeneralizations or oversimplifications\n   - Internal contradictions\n   - Potential biases (confirmation bias, selection bias, framing effects)\n\n3. **Gaps & Missing Perspectives** — What important information, viewpoints, or counterarguments are absent? What questions does the text raise but fail to answer?\n\n4. **Recommendations for Improvement** — Provide specific, actionable suggestions for how the text could be strengthened — additional evidence needed, alternative perspectives to consider, structural improvements, etc.\n\nGuidelines:\n- Be constructive, not dismissive — the goal is improvement, not destruction.\n- Support your critique with specific references to the text.\n- Maintain intellectual honesty — acknowledge strengths even in weak texts, and identify weaknesses even in strong ones.\n\nText to critique:\n\"\"\"\n{input_text}\n\"\"\"\n\nCritical Analysis:",
+            "output_format": "four_section_report",
+            "category": "critical_thinking"
+        },
+        {
+            "id": "translate_summary",
+            "name": "Multilingual Summary",
+            "description": "Creates a clear summary of the text and then provides an accurate, culturally appropriate translation of that summary into a specified target language — bridging language barriers while preserving meaning.",
+            "prompt_template": "You are a bilingual summarization expert fluent in both English and {target_language}. Your task is to:\n\n1. **Summarize** the following text into 4-6 clear, informative bullet points in English, capturing the essential information and key takeaways.\n2. **Translate** the summary into {target_language}, ensuring the translation is:\n   - Linguistically accurate and grammatically correct\n   - Culturally appropriate (adapting idioms, references, or terminology as needed)\n   - Natural-sounding to a native speaker of {target_language}\n   - Faithful to the original meaning without adding or omitting information\n\nGuidelines:\n- The English summary should be clear enough to stand on its own.\n- The translation should read as if it were originally written in {target_language}, not as a word-for-word translation.\n- If a technical term has no direct equivalent in {target_language}, provide the closest equivalent with the English term in parentheses.\n\nText to summarize and translate:\n\"\"\"\n{input_text}\n\"\"\"\n\n**English Summary:**\n\n**{target_language} Summary:**",
+            "output_format": "bilingual_summary",
+            "category": "summarization",
+            "extra_params": [
+                "target_language"
+            ]
+        },
+        {
+            "id": "mind_map",
+            "name": "Hierarchical Mind Map Structure",
+            "description": "Deconstructs the text into a hierarchical knowledge structure showing how the central idea branches into major themes, sub-topics, and supporting details — revealing the architecture of the content.",
+            "prompt_template": "You are a knowledge architect who specializes in organizing information into clear, intuitive hierarchical structures. Your task is to read the following text and create a mind map that visually represents how the ideas are organized and related.\n\nBuild the mind map with these levels:\n- **Central Topic**: The single overarching subject of the text (1 node).\n- **Main Branches**: The primary themes, sections, or arguments (3-6 branches).\n- **Sub-Branches**: Key details, evidence, examples, or supporting points under each main branch (2-4 per branch).\n- **Leaf Nodes** (optional): Specific facts, data points, or examples that support the sub-branches.\n\nPresent the mind map as an indented outline using this format:\n```\n🎯 Central Topic\n  ├── 🔵 Main Branch 1\n  │   ├── Sub-point 1a\n  │   ├── Sub-point 1b\n  │   └── Sub-point 1c\n  ├── 🔵 Main Branch 2\n  │   ├── Sub-point 2a\n  │   └── Sub-point 2b\n  └── 🔵 Main Branch 3\n      ├── Sub-point 3a\n      └── Sub-point 3b\n```\n\nGuidelines:\n- The structure should reveal the logical organization of the content.\n- Related ideas should be grouped together.\n- Each node should be concise (a few words to one short phrase).\n- Cross-connections between branches can be noted at the end if significant relationships exist.\n\nText to map:\n\"\"\"\n{input_text}\n\"\"\"\n\nMind Map:",
+            "output_format": "indented_hierarchical_outline",
+            "category": "visualization"
+        },
+        {
+            "id": "quiz",
+            "name": "Multiple-Choice Quiz Generator",
+            "description": "Automatically generates a well-crafted multiple-choice quiz from the text — with carefully designed distractors and explanations — suitable for self-assessment, classroom use, or training purposes.",
+            "prompt_template": "You are an expert test designer creating a high-quality multiple-choice quiz based on the following text. The quiz should effectively assess whether someone has read and understood the material.\n\nFor each question, provide:\n- **Question**: A clear, unambiguous question testing an important concept from the text.\n- **Options**: Four choices labeled A, B, C, D. One must be clearly correct, and the three distractors should be plausible but definitively wrong based on the text.\n- **Correct Answer**: The letter of the correct option.\n- **Explanation**: A brief explanation of why the correct answer is right and why a common distractor is wrong.\n\nGuidelines:\n- Create 6-10 questions depending on the length and density of the content.\n- Vary the difficulty: include some straightforward recall questions and some that require inference or synthesis.\n- Avoid 'trick' questions, double negatives, or 'all of the above' / 'none of the above' options.\n- Distractors should be genuinely plausible — they should represent common misunderstandings, not absurd options.\n- Questions should cover the breadth of the content, not just one section.\n- The correct answer should not always be the same letter.\n\nText for the quiz:\n\"\"\"\n{input_text}\n\"\"\"\n\nQuiz:",
+            "output_format": "mcq_with_explanations",
+            "category": "education"
+        },
+        {
+            "id": "glossary",
+            "name": "Glossary & Key Term Definitions",
+            "description": "Identifies all specialized vocabulary, technical terms, acronyms, and domain-specific jargon used in the text and provides clear, accessible definitions — serving as a companion reference guide.",
+            "prompt_template": "You are a technical writer creating a comprehensive glossary to accompany the following text. Your task is to identify every term that a general reader might not immediately understand — including technical jargon, domain-specific vocabulary, acronyms, abbreviations, and specialized concepts — and provide a clear, accessible definition for each.\n\nFor each glossary entry, provide:\n- **Term**: The word, phrase, or acronym as it appears in the text.\n- **Definition**: A clear, concise definition (1-3 sentences) written for someone unfamiliar with the domain.\n- **Context**: How the term is used or why it matters in the context of this specific text (1 sentence).\n\nGuidelines:\n- Arrange terms alphabetically for easy reference.\n- Expand all acronyms (e.g., 'API — Application Programming Interface').\n- Do not define common, everyday words — focus on terms that require domain knowledge.\n- If a term has multiple meanings, provide the definition relevant to this text's context.\n- Aim for definitions that are accurate but accessible — avoid defining jargon with more jargon.\n\nText to create glossary for:\n\"\"\"\n{input_text}\n\"\"\"\n\nGlossary:",
+            "output_format": "alphabetical_definition_list",
+            "category": "education"
+        },
+        {
+            "id": "swot_analysis",
+            "name": "SWOT Analysis",
+            "description": "Applies the classic SWOT strategic framework to the content — systematically categorizing information into Strengths, Weaknesses, Opportunities, and Threats — to provide a structured strategic overview of the situation described.",
+            "prompt_template": "You are a strategic business consultant performing a SWOT analysis based on the information presented in the following text. Your goal is to organize the relevant information into the four SWOT quadrants to provide a clear strategic overview.\n\n**S — Strengths** (Internal, Positive): What advantages, capabilities, resources, or positive attributes are discussed? What is working well?\n\n**W — Weaknesses** (Internal, Negative): What limitations, deficiencies, vulnerabilities, or internal challenges are mentioned? What needs improvement?\n\n**O — Opportunities** (External, Positive): What favorable external conditions, emerging trends, untapped markets, or potential advantages are identified? What could be leveraged for growth?\n\n**T — Threats** (External, Negative): What external risks, competitive pressures, regulatory changes, market shifts, or potential dangers are discussed? What could cause harm?\n\nFor each quadrant:\n- List 2-5 specific, concrete points drawn from the text.\n- Provide a brief supporting quote or reference from the text for each point.\n\nConclude with a **Strategic Implications** paragraph (3-4 sentences) summarizing the most important takeaway: What should the subject of this text prioritize based on this SWOT analysis?\n\nGuidelines:\n- Only include information supported by the text — do not fabricate strengths, weaknesses, opportunities, or threats.\n- Clearly distinguish between internal factors (S/W) and external factors (O/T).\n- If the text does not contain enough information for a full SWOT, acknowledge the gaps honestly.\n\nText to analyze:\n\"\"\"\n{input_text}\n\"\"\"\n\nSWOT Analysis:",
+            "output_format": "four_quadrant_with_conclusion",
+            "category": "business"
+        }
+    ],
+    "global_settings": {
+        "max_input_length": 10000,
+        "default_model": "gemini-2.0-flash",
+        "temperature": 0.4,
+        "top_p": 0.9,
+        "system_instruction": "You are an expert text analyst and summarizer with deep expertise in information extraction, critical reasoning, and clear communication. Your role is to analyze, interpret, and restructure user-provided text with precision and insight. Always base your responses strictly on the content of the provided text. Never fabricate, hallucinate, or introduce information that is not present or directly inferable from the source material. When uncertain, state your uncertainty rather than guessing. Prioritize clarity, accuracy, and usefulness in every response."
+    }
+}
