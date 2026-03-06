@@ -15,17 +15,18 @@ async function extractTextFromPDF(file: File): Promise<ParseResult> {
   try {
     // Dynamic import of PDF.js to avoid build issues
     const pdfjsLib = await import('pdfjs-dist');
-    
-    // Use worker from public directory
-    pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
-    console.log('PDF.js worker configured: /pdf.worker.min.mjs');
-    
+
+    // Use worker from CDN matching the library version to avoid mismatch
+    const version = pdfjsLib.version;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.mjs`;
+    console.log(`PDF.js worker configured (v${version}): ${pdfjsLib.GlobalWorkerOptions.workerSrc}`);
+
     const arrayBuffer = await file.arrayBuffer();
     const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
     const pdf = await loadingTask.promise;
-    
+
     let fullText = '';
-    
+
     for (let i = 1; i <= pdf.numPages; i++) {
       const page = await pdf.getPage(i);
       const textContent = await page.getTextContent();
@@ -39,11 +40,11 @@ async function extractTextFromPDF(file: File): Promise<ParseResult> {
         .join(' ');
       fullText += pageText + '\n\n';
     }
-    
+
     if (!fullText.trim()) {
       throw new Error('No text found in PDF. The PDF might be image-based or empty.');
     }
-    
+
     return {
       text: fullText.trim(),
       fileName: file.name,
@@ -63,11 +64,11 @@ async function extractTextFromDOCX(file: File): Promise<ParseResult> {
   try {
     const arrayBuffer = await file.arrayBuffer();
     const result = await mammoth.extractRawText({ arrayBuffer });
-    
+
     if (!result.value.trim()) {
       throw new Error('No text found in DOCX file.');
     }
-    
+
     return {
       text: result.value.trim(),
       fileName: file.name,
@@ -85,11 +86,11 @@ async function extractTextFromDOCX(file: File): Promise<ParseResult> {
 async function extractTextFromTXT(file: File): Promise<ParseResult> {
   try {
     const text = await file.text();
-    
+
     if (!text.trim()) {
       throw new Error('The text file is empty.');
     }
-    
+
     return {
       text: text.trim(),
       fileName: file.name,
@@ -107,16 +108,16 @@ async function extractTextFromTXT(file: File): Promise<ParseResult> {
 export async function parseFile(file: File): Promise<ParseResult> {
   const fileType = file.type;
   const fileName = file.name.toLowerCase();
-  
+
   console.log('📄 Parsing file:', fileName, 'Type:', fileType, 'Size:', file.size);
-  
+
   try {
     // PDF files
     if (fileType === 'application/pdf' || fileName.endsWith('.pdf')) {
       console.log('🔍 Detected PDF file, extracting text...');
       return await extractTextFromPDF(file);
     }
-    
+
     // DOCX files
     if (
       fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
@@ -125,13 +126,13 @@ export async function parseFile(file: File): Promise<ParseResult> {
       console.log('🔍 Detected DOCX file, extracting text...');
       return await extractTextFromDOCX(file);
     }
-    
+
     // TXT files
     if (fileType === 'text/plain' || fileName.endsWith('.txt')) {
       console.log('🔍 Detected TXT file, reading text...');
       return await extractTextFromTXT(file);
     }
-    
+
     throw new Error('Unsupported file type. Please upload PDF, DOCX, or TXT files.');
   } catch (error: any) {
     console.error('❌ File parsing error:', error);
@@ -150,9 +151,9 @@ export function validateFile(file: File): { valid: boolean; error?: string } {
     'text/plain',
   ];
   const allowedExtensions = ['.pdf', '.docx', '.txt'];
-  
+
   console.log('✅ Validating file:', file.name, 'Size:', (file.size / 1024 / 1024).toFixed(2) + 'MB', 'Type:', file.type);
-  
+
   // Check file size
   if (file.size > maxSize) {
     return {
@@ -160,19 +161,19 @@ export function validateFile(file: File): { valid: boolean; error?: string } {
       error: `File size (${(file.size / 1024 / 1024).toFixed(2)}MB) exceeds 10MB limit`,
     };
   }
-  
+
   // Check file type
   const fileName = file.name.toLowerCase();
   const hasValidType = allowedTypes.includes(file.type);
   const hasValidExtension = allowedExtensions.some(ext => fileName.endsWith(ext));
-  
+
   if (!hasValidType && !hasValidExtension) {
     return {
       valid: false,
       error: `Invalid file type "${file.type}". Please upload PDF, DOCX, or TXT files.`,
     };
   }
-  
+
   console.log('✅ File validation passed');
   return { valid: true };
 }
