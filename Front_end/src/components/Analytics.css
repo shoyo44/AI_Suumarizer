@@ -1,0 +1,404 @@
+/* ═══════════════════════════════════════════════════════════════
+   ANALYTICS PAGE — Midnight Atelier
+   Dashboard-style analytics with glassmorphic stat cards
+   ═══════════════════════════════════════════════════════════════ */
+
+.analytics-page {
+    padding: 2rem 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    animation: fadeSlideUp 0.5s var(--ease-out) both;
+}
+
+/* Header */
+.analytics-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+.analytics-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 40%, #f59e0b 70%, #d97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+}
+
+.analytics-subtitle {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.analytics-exit-btn {
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    padding: 8px 18px;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s var(--ease-out);
+}
+
+.analytics-exit-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-active);
+    color: var(--primary);
+}
+
+/* ═══ STAT CARDS ROW ═══ */
+.stat-cards-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.3s var(--ease-out);
+    animation: fadeSlideUp 0.4s var(--ease-out) both;
+}
+
+.stat-card:nth-child(2) {
+    animation-delay: 0.05s;
+}
+
+.stat-card:nth-child(3) {
+    animation-delay: 0.1s;
+}
+
+.stat-card:nth-child(4) {
+    animation-delay: 0.15s;
+}
+
+.stat-card:nth-child(5) {
+    animation-delay: 0.2s;
+}
+
+.stat-card:hover {
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.stat-icon {
+    font-size: 1.6rem;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-muted);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    font-weight: 500;
+}
+
+/* ═══ ANALYTICS GRID ═══ */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.analytics-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    transition: all 0.3s var(--ease-out);
+    animation: fadeSlideUp 0.5s var(--ease-out) 0.2s both;
+}
+
+.analytics-card:hover {
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shadow-lg);
+}
+
+.chart-wide {
+    grid-column: 1 / -1;
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.chart-empty {
+    color: var(--text-dimmed);
+    font-size: 0.9rem;
+    font-style: italic;
+    text-align: center;
+    padding: 32px 0;
+}
+
+/* ═══ BAR CHART ═══ */
+.bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 200px;
+    padding-top: 24px;
+    position: relative;
+}
+
+.bar-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.bar-col:hover .bar-tooltip {
+    opacity: 1;
+    transform: translateY(-4px);
+}
+
+.bar-col:hover .bar-fill {
+    background: var(--amber-400);
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.3);
+}
+
+.bar-tooltip {
+    position: absolute;
+    top: -8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--primary);
+    background: var(--bg-elevated);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    opacity: 0;
+    transition: all 0.2s var(--ease-out);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.bar-fill {
+    width: 100%;
+    background: linear-gradient(180deg, var(--amber-500) 0%, var(--amber-600) 100%);
+    border-radius: 4px 4px 0 0;
+    min-height: 3px;
+    transition: all 0.3s var(--ease-out);
+}
+
+.bar-label {
+    font-size: 0.7rem;
+    color: var(--text-dimmed);
+    margin-top: 8px;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+/* ═══ TOP USECASES LIST ═══ */
+.top-usecases-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.top-usecase-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.top-usecase-rank {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.top-usecase-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.top-usecase-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.top-usecase-bar-bg {
+    height: 6px;
+    background: var(--bg-deep);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.top-usecase-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--amber-500), var(--amber-400));
+    border-radius: var(--radius-full);
+    transition: width 0.6s var(--ease-out);
+}
+
+.top-usecase-count {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    width: 32px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+/* ═══ CATEGORY BREAKDOWN ═══ */
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.category-icon {
+    font-size: 1.2rem;
+    width: 32px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.category-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.category-name-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: capitalize;
+}
+
+.category-count {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.category-bar-bg {
+    height: 6px;
+    background: var(--bg-deep);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.category-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--amber-600), var(--amber-400));
+    border-radius: var(--radius-full);
+    transition: width 0.6s var(--ease-out);
+}
+
+/* Insight box */
+.insight-box {
+    background: var(--primary-muted);
+    border: 1px solid var(--border-active);
+    border-radius: var(--radius-md);
+    padding: 14px;
+}
+
+.insight-label {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.insight-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 900px) {
+    .stat-cards-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .analytics-page {
+        padding: 1rem;
+    }
+
+    .stat-cards-row {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
