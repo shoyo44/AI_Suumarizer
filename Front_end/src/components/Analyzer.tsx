@@ -197,20 +197,30 @@ export default function Analyzer({ usecases, onAnalysisComplete, initialText, in
           </div>
 
           <div className="roles-list">
-            {filteredUsecases.map(uc => (
-              <div
-                key={uc.id}
-                className={`role-card ${selectedUsecase === uc.id ? 'active' : ''}`}
-                onClick={() => setSelectedUsecase(uc.id)}
-              >
-                <div className="role-card-header">
-                  <h4>{uc.name}</h4>
-                  <span className="role-icon">{getUsecaseIcon(uc.name)}</span>
-                </div>
-                <p>{uc.description}</p>
-                {selectedUsecase === uc.id && <div className="active-indicator">✓</div>}
+            {usecases.length === 0 ? (
+              <div className="empty-state" style={{ padding: '20px', textAlign: 'center', fontSize: '0.85rem' }}>
+                <p>No roles loaded. Ensure the backend server is running.</p>
               </div>
-            ))}
+            ) : filteredUsecases.length === 0 ? (
+              <div className="empty-state" style={{ padding: '20px', textAlign: 'center', fontSize: '0.85rem' }}>
+                <p>No roles match your search.</p>
+              </div>
+            ) : (
+              filteredUsecases.map(uc => (
+                <div
+                  key={uc.id}
+                  className={`role-card ${selectedUsecase === uc.id ? 'active' : ''}`}
+                  onClick={() => setSelectedUsecase(uc.id)}
+                >
+                  <div className="role-card-header">
+                    <h4>{uc.name}</h4>
+                    <span className="role-icon">{getUsecaseIcon(uc.name)}</span>
+                  </div>
+                  <p>{uc.description}</p>
+                  {selectedUsecase === uc.id && <div className="active-indicator">✓</div>}
+                </div>
+              ))
+            )}
           </div>
         </div>
       </aside>
