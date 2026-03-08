@@ -1110,19 +1110,23 @@ textarea:focus {
     background: transparent;
   }
 
-  /* Sidebar becomes a rounded card — same as MediaMind AI role selector */
-  .sidebar {
+  /* Unified equal-height cards for mobile */
+  .sidebar,
+  .input-section,
+  .output-section {
     width: 100%;
-    max-height: none;
-    height: auto;
-    overflow: visible;
+    height: 400px;
+    /* Equal blocks size */
+    display: flex;
+    flex-direction: column;
     border: 1px solid var(--border);
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
     border-radius: 16px;
     background: var(--bg-surface);
     padding: 1rem;
     box-shadow: var(--shadow-md);
+    box-sizing: border-box;
+    overflow: hidden;
+    /* Prevent spillover */
   }
 
   /* Sidebar header (title above role selector) */
@@ -1174,10 +1178,12 @@ textarea:focus {
 
   /* Roles list — scrollable within card */
   .roles-list {
-    height: auto;
-    max-height: 260px;
+    flex: 1;
+    /* Take remaining space */
+    min-height: 0;
     overflow-y: auto;
     border-radius: 10px;
+    padding-bottom: 0.5rem;
   }
 
   /* Role cards — match MediaMind AI list items */
@@ -1210,15 +1216,7 @@ textarea:focus {
     flex-direction: column;
   }
 
-  /* Input and output sections become rounded cards */
-  .input-section,
-  .output-section {
-    padding: 1rem;
-    border-radius: 16px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-md);
-  }
+
 
   .section-label {
     margin-bottom: 0.5rem;
@@ -1232,12 +1230,28 @@ textarea:focus {
     font-size: 0.8rem;
     margin-bottom: 0.75rem;
     padding-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .textarea-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    margin-bottom: 0.75rem;
   }
 
   textarea {
-    min-height: 110px;
+    flex: 1;
+    min-height: 0;
+    height: 100%;
+    resize: none;
     font-size: 0.9rem;
     border-radius: 10px;
+    padding-bottom: 38px;
+    /* space for upload icon and char count */
   }
 
   .generate-btn {
@@ -1270,6 +1284,14 @@ textarea:focus {
     font-size: 0.78rem;
     border-radius: 8px;
   }
+
+  .output-content {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 /* ── Small phones (≤480px) ── */
@@ -1284,9 +1306,6 @@ textarea:focus {
     border-radius: 14px;
   }
 
-  .roles-list {
-    max-height: 220px;
-  }
 
   .input-section,
   .output-section {
@@ -1294,9 +1313,6 @@ textarea:focus {
     border-radius: 14px;
   }
 
-  textarea {
-    min-height: 90px;
-  }
 
   .output-actions {
     flex-direction: column;
