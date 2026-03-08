@@ -136,9 +136,9 @@ export default function Analyzer({ usecases, onAnalysisComplete, initialText, in
     const html2pdf = (await import('html2pdf.js')).default
     const element = document.createElement('div')
     element.innerHTML = `
-      <div style="font-family: sans-serif; padding: 20px;">
-        <h2>AI Analysis - ${selectedUsecaseData?.name || 'Summary'}</h2>
-        <pre style="font-family: sans-serif; white-space: pre-wrap; font-size: 14px; line-height: 1.6;">${result}</pre>
+      <div style="font-family: sans-serif; padding: 20px; color: #000; background-color: #fff;">
+        <h2 style="color: #000;">AI Analysis - ${selectedUsecaseData?.name || 'Summary'}</h2>
+        <pre style="font-family: sans-serif; white-space: pre-wrap; font-size: 14px; line-height: 1.6; color: #000;">${result}</pre>
       </div>
     `
     html2pdf().set({
@@ -293,11 +293,9 @@ export default function Analyzer({ usecases, onAnalysisComplete, initialText, in
                 </button>
               ) : (
                 <>
-                  {currentHistoryId && (
-                    <button className="action-btn" onClick={handleShare} disabled={sharing} title={shareLink ? 'Link copied!' : 'Generate public link'} style={{ color: shareLink ? '#f59e0b' : '' }}>
-                      {sharing ? '⏳' : (shareLink ? '✅ Copied' : '🔗 Share')}
-                    </button>
-                  )}
+                  <button className="action-btn" onClick={handleShare} disabled={!result || !currentHistoryId || sharing} title={shareLink ? 'Link copied!' : 'Generate public link'} style={{ color: shareLink ? '#f59e0b' : '' }}>
+                    {sharing ? '⏳' : (shareLink ? '✅ Copied' : '🔗 Share')}
+                  </button>
                   <button className="action-btn" onClick={handleExportPDF} disabled={!result} title="Export as PDF">📄 PDF</button>
                   <button className="action-btn" onClick={handleExportMarkdown} disabled={!result} title="Export as Markdown">📝 MD</button>
                   <button
