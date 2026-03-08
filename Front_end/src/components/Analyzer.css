@@ -1511,8 +1511,9 @@ textarea:focus {
 
 
   .output-actions {
-    flex-direction: column;
-    gap: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
 
   .action-btn {
