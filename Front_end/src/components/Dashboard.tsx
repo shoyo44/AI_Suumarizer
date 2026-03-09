@@ -137,8 +137,16 @@ export default function Dashboard() {
         </div>
 
         <div className="nav-right" ref={menuRef}>
-          <button className="menu-btn" onClick={() => setShowMenu(!showMenu)}>
+          <button
+            className="menu-btn"
+            onClick={() => setShowMenu(!showMenu)}
+            aria-label="Toggle Menu"
+            aria-expanded={showMenu}
+            aria-haspopup="true"
+            title="Toggle Menu"
+          >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <title>Menu</title>
               <circle cx="12" cy="5" r="2" />
               <circle cx="12" cy="12" r="2" />
               <circle cx="12" cy="19" r="2" />
