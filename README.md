@@ -1,5 +1,5 @@
 # AI Summarizer — Modern AI Content Hub
-# Deployed link: **https://ai-summarizer-five-rho.vercel.app/shared/d11be11b-df1**
+# Deployed link: **https://ai-summarizer-five-rho.vercel.app/**
 AI Summarizer is a powerful, full-stack application that leverages Cloudflare's Workers AI (Llama 3.1 & Stable Diffusion) to provide advanced content generation, document analysis, and detailed usage insights. It features a premium "Midnight Atelier" design aesthetic with a robust backend powered by FastAPI and MongoDB.
 
 ## 🚀 Key Features
