@@ -123,13 +123,14 @@ export default function Analyzer({ usecases, onAnalysisComplete, initialText, in
       if (token) {
         const { share_id } = await api.shareHistoryItem(currentHistoryId, token)
         const link = `${window.location.origin}/shared/${share_id}`
+        const appHome = window.location.origin
+        const shareText = `AI Summarizer - Creative AI Assistant\n${appHome}\n\nCheck out my AI-generated analysis! ${link}`
 
         // Attempt to use native Web Share API (mobile friendly)
         if (navigator.share) {
           await navigator.share({
-            title: `AI Analysis - ${selectedUsecaseData?.name || 'Summary'}`,
-            text: 'Check out my AI-generated analysis!',
-            url: link
+            title: 'AI Summarizer - Creative AI Assistant',
+            text: shareText,
           }).catch((err) => {
             // If user cancels share, just log it, don't show error
             if (err.name !== 'AbortError') {
@@ -138,8 +139,8 @@ export default function Analyzer({ usecases, onAnalysisComplete, initialText, in
           })
         } else {
           // Fallback to clipboard copied message for desktop
-          await navigator.clipboard.writeText(link)
-          setShareLink(link)
+          await navigator.clipboard.writeText(shareText)
+          setShareLink(shareText)
           // Hide copied text after 3 seconds
           setTimeout(() => setShareLink(''), 3000)
         }
